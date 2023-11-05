@@ -12,3 +12,14 @@ a{
 #checkbox{
     display: none;
 }
+@media (min-width: 1px) and (max-width: 350px){
+.question{
+    font-size: 15px;
+}
+.btn{
+    width: 100px;
+}
+.data{
+    font-size: 10px;
+}
+}

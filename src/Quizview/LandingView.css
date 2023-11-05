@@ -1,0 +1,117 @@
+/* Style for the quiz container */
+.quiz-container {
+    padding: 20px;
+    width: 100%; /* Use the full width */
+    max-width: 500px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+  }
+  
+  /* Style for the header */
+  .quiz-header {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  /* Style for individual questions and options */
+  .question {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #cb5b5b;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Use the full width */
+    max-width: 450px; /* Set a maximum width for the questions */
+  }
+  
+  .question.hidden {
+    display: none;
+  }
+  
+  .question-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  
+  /* Style for buttons */
+  .button {
+    border-radius: 30px;
+    padding: 8px;
+    width: 100%;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    background: white;
+    color: black;
+    border: 1px solid #ccc;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .button.selected {
+    background: black;
+    color: white;
+  }
+  
+  /* Style for the quiz controls */
+  .quiz-controls {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    /* Adjust styling for smaller screens */
+    .quiz-container {
+      padding: 10px;
+    }
+  
+    .question {
+      max-width: 100%; /* Remove the maximum width for questions on smaller screens */
+    }
+  }
+  
+  .quiz-questions {
+    text-align: center;
+  }
+  
+  .next-button,
+  .submit-button {
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    background: blue;
+    color: white;
+    border: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .next-button:hover,
+  .submit-button:hover {
+    background: darkblue;
+  }
+  
+  /* Style for the result display */
+  .result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    font-size: 40px;
+    color: blueviolet;
+    font-weight: 600;
+  }
+  

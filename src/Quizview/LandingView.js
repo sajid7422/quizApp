@@ -1,99 +1,82 @@
 import React, { useEffect, useState } from "react";
 import { QuizData } from "./QuizDummyData";
+import "./LandingView.css"; // Import your CSS file
 
 function LandingView() {
-  const [queNo ,setQuesNo] = useState(1)
-  const [score ,setscore] = useState(0);
-  const [selectedAns, setSelectedAns] = useState("")
-  const [correctAnswer,setCorrectanswer] = useState("")
- useEffect(()=>{
+  const [queNo, setQuesNo] = useState(1);
+  const [score, setscore] = useState(0);
+  const [selectedAns, setSelectedAns] = useState("");
+  const [correctAnswer, setCorrectanswer] = useState(null);
+  const [displayResult, setDisplayResult] = useState(false);
+  const [tickColor, setTickcolor] = useState(null);
 
- },[score])
+  useEffect(() => {}, [score]);
 
   const handleNext = () => {
-    setQuesNo(queNo+1)
-    if(correctAnswer == selectedAns) {
-      setscore(score+1)
+    setTickcolor(null);
+    setCorrectanswer(null);
+    setQuesNo(queNo + 1);
+    if (correctAnswer === selectedAns) {
+      setscore(score + 1);
     }
-    
-  
+  };
 
-  }
-  const handleOption =(option,quiz) =>{
-    setCorrectanswer(quiz.Answer)
-    console.log("quiz",quiz)
-    console.log("quiz.Answer",quiz.Answer)
-    console.log("option",option)
-    setSelectedAns(option)
+  const handleOption = (option, quiz, index) => {
+    setTickcolor(index);
+    setCorrectanswer(quiz.Answer);
+    setSelectedAns(option);
+  };
 
+  const Showresult = () => {
+    if (correctAnswer === selectedAns) {
+      setscore(score + 1);
+    }
+    setDisplayResult(true);
+  };
 
-  }
-  console.log("score",score)
   return (
-    <div style={{ padding: "20px 10px" }}>
-      <center style={{ fontSize: "30px" }}>{`Question ${queNo}/${QuizData.length}`}</center>
-      <section style={{ marginTop: "30px", padding: "0px 80px" }}>
-        {QuizData.map((quiz, index) => {
-          return (
-          <div>
-           { (index+1) == queNo &&
-               <div key={index}>
-               <div style={{ fontSize: "30px" }}>
-               {quiz.Question}
-               </div>
-               <div
-                 style={{
-                   display: "grid",
-                   gridTemplateColumns: "auto auto",
-                   margin: "30px 0px",
-                   gap: "50px",
-                 }}
-               >
-                {
-                 quiz.Options.map((option,index)=>{
-                   return(
-                     <div key={index}>
-                     <button 
-                     style={{
-                      background: "pink",
-                      padding: "5px 50px",
-                      fontSize: "25px",
-                      borderRadius: "30px",
-                      border:"none",
-                      cursor:"pointer"
-                    }} > 
-                    <span onClick={()=>{handleOption(option,quiz)}}>
-                        {option}
-                      </span> 
-                      </button>
-                   </div>
-                   )
-                 })
-                }
-             
-               </div>
-             </div>
-           }
+    <div>
+      {!displayResult ? (
+        <div className="quiz-container">
+          <center className="quiz-header">{`Question ${queNo}/${QuizData.length}`}</center>
+          <section className="quiz-questions">
+            {QuizData.map((quiz, index) => {
+              return (
+                <div key={index} className={`question ${index + 1 === queNo ? "" : "hidden"}`}>
+                  <div className="question-text">{quiz.Question}</div>
+                  <div className="options">
+                    {quiz.Options.map((option, optionIndex) => (
+                      <div key={optionIndex}>
+                        <button
+                          className={`button ${optionIndex === tickColor ? "selected" : ""}`}
+                          onClick={() => handleOption(option, quiz, optionIndex)}
+                        >
+                          {option}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+          <div className="quiz-controls">
+            {queNo < QuizData.length ? (
+              <button className="next-button" onClick={handleNext}>
+                Next
+              </button>
+            ) : (
+              <button className="submit-button" onClick={Showresult}>
+                Submit
+              </button>
+            )}
           </div>
-          );
-        })}
-      </section>
-      <div style={{ display: "flex", float: "right", padding: "20px 60px", cursor:"pointer" }}>
-     {queNo < 10 ?
-         <button
-         style={{ background: "blue", color: "white", padding: "10px 40px", cursor:"pointer", fontSize:"20px" }}
-       onClick={handleNext} >
-         Next
-       </button>
-       :
-       <button
-       style={{ background: "blue", color: "white", padding: "10px 40px", cursor:"pointer", fontSize:"20px" }} >
-        Summit
-
-       </button>
-       
-     }
-      </div>
+        </div>
+      ) : (
+        <div className="result">
+          {`Your Score is ${score} out of ${QuizData.length}`}
+        </div>
+      )}
     </div>
   );
 }
